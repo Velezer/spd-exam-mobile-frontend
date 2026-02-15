@@ -3,7 +3,6 @@ import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import HomeScreen from '../screens/home/HomeScreen';
 import TutorialStack from './TutorialStack';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import { Colors } from '../constants/colors';
@@ -21,9 +20,6 @@ const MainTabs = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           switch (route.name) {
-            case 'HomeTab':
-              iconName = focused ? 'home' : 'home-outline';
-              break;
             case 'TutorialTab':
               iconName = focused ? 'book' : 'book-outline';
               break;
@@ -50,11 +46,6 @@ const MainTabs = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen
-        name="HomeTab"
-        component={HomeScreen}
-        options={{ tabBarLabel: 'Home' }}
-      />
       <Tab.Screen
         name="TutorialTab"
         component={TutorialStack}
