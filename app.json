@@ -27,6 +27,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
+      "apiBaseUrl": "https://spd-exam-backend-2af53d7fefb5.herokuapp.com",
       "eas": {
         "projectId": "32d2853c-bc5d-4440-96cd-19a3d01e1db1"
       }
