@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Alert,
-  TouchableOpacity,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -33,33 +32,11 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.avatar}>
           <Ionicons name="person" size={40} color={Colors.white} />
         </View>
-        <Text style={styles.name}>{user?.name || 'Pengguna'}</Text>
         <Text style={styles.email}>{user?.email || ''}</Text>
       </View>
 
-      <View style={styles.menu}>
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() =>
-            navigation.navigate('OrderTab', { screen: 'OrderList' })
-          }
-        >
-          <View style={styles.menuLeft}>
-            <Ionicons
-              name="receipt-outline"
-              size={22}
-              color={Colors.textPrimary}
-            />
-            <Text style={styles.menuText}>Pesanan Saya</Text>
-          </View>
-          <Ionicons
-            name="chevron-forward"
-            size={20}
-            color={Colors.gray400}
-          />
-        </TouchableOpacity>
-
-      </View>
+      {/* <View style={styles.menu}>
+      </View> */}
 
       <View style={[styles.logoutSection, { paddingBottom: 20 + insets.bottom }]}>
         <Button title="Logout" onPress={handleLogout} variant="secondary" />

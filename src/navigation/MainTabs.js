@@ -5,7 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HomeScreen from '../screens/home/HomeScreen';
 import TutorialStack from './TutorialStack';
-import OrderStack from './OrderStack';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import { Colors } from '../constants/colors';
  
@@ -28,9 +27,7 @@ const MainTabs = () => {
             case 'TutorialTab':
               iconName = focused ? 'book' : 'book-outline';
               break;
-            case 'OrderTab':
-              iconName = focused ? 'receipt' : 'receipt-outline';
-              break;
+            
             case 'ProfileTab':
               iconName = focused ? 'person' : 'person-outline';
               break;
@@ -63,11 +60,7 @@ const MainTabs = () => {
         component={TutorialStack}
         options={{ tabBarLabel: 'Tutorial' }}
       />
-      <Tab.Screen
-        name="OrderTab"
-        component={OrderStack}
-        options={{ tabBarLabel: 'Pesanan' }}
-      />
+      
       <Tab.Screen
         name="ProfileTab"
         component={ProfileScreen}
