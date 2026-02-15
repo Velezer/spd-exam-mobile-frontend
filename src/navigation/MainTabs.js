@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HomeScreen from '../screens/home/HomeScreen';
-import ProductStack from './ProductStack';
+import TutorialStack from './TutorialStack';
 import CartStack from './CartStack';
 import OrderStack from './OrderStack';
 import ProfileScreen from '../screens/profile/ProfileScreen';
@@ -26,8 +26,8 @@ const MainTabs = () => {
             case 'HomeTab':
               iconName = focused ? 'home' : 'home-outline';
               break;
-            case 'ProductTab':
-              iconName = focused ? 'grid' : 'grid-outline';
+            case 'TutorialTab':
+              iconName = focused ? 'book' : 'book-outline';
               break;
             case 'CartTab':
               iconName = focused ? 'cart' : 'cart-outline';
@@ -63,9 +63,9 @@ const MainTabs = () => {
         options={{ tabBarLabel: 'Home' }}
       />
       <Tab.Screen
-        name="ProductTab"
-        component={ProductStack}
-        options={{ tabBarLabel: 'Produk' }}
+        name="TutorialTab"
+        component={TutorialStack}
+        options={{ tabBarLabel: 'Tutorial' }}
       />
       <Tab.Screen
         name="CartTab"

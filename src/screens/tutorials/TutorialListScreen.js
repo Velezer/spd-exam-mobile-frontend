@@ -14,7 +14,7 @@ const TutorialListScreen = ({ navigation }) => {
   const fetchItems = async () => {
     try {
       setLoading(true);
-      const res = await ProductClient.getProducts();
+      const res = await ProductClient.getTutorials();
       setItems(res.data || []);
     } catch (err) {
       // ignore for now

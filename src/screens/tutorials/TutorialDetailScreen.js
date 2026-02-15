@@ -20,7 +20,7 @@ const TutorialDetailScreen = ({ route, navigation }) => {
   const fetchDetail = async () => {
     try {
       setLoading(true);
-      const res = await ProductClient.getProductById(id);
+      const res = await ProductClient.getTutorialById(id);
       setItem(res.data);
     } catch (err) {
       navigation.goBack();

@@ -11,22 +11,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { useAuth } from '../../contexts/AuthContext';
-import api from '../../api/axiosInstance';
-import ProductCard from '../../components/ProductCard';
+import ProductClient from '../../api/ProductClient';
+import TutorialCard from '../../components/TutorialCard';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
   const { user } = useAuth();
   const navigation = useNavigation();
-  const [products, setProducts] = useState([]);
+  const [tutorials, setTutorials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  const fetchProducts = useCallback(async () => {
+  const fetchTutorials = useCallback(async () => {
     try {
-      const response = await api.get('/api/products?limit=6');
-      setProducts(response.data);
+      const response = await ProductClient.getTutorials(10);
+      setTutorials(response.data || []);
     } catch {
       // silently fail
     } finally {
@@ -36,48 +36,42 @@ const HomeScreen = () => {
   }, []);
 
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+    fetchTutorials();
+  }, [fetchTutorials]);
+
+  const renderHeader = () => {
+    const name = user?.name || t('guest');
+    return (
+      <>
+        <View style={styles.greeting}>
+          <View>
+            <Text style={styles.greetingSmall}>{t('greetingSmall')}</Text>
+            <Text style={styles.greetingName}>{name}</Text>
+          </View>
+          <TouchableOpacity style={styles.cartIcon} onPress={() => {}}>
+            <Ionicons name="cart-outline" size={22} color={Colors.textPrimary} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.banner}>
+          <Text style={styles.bannerTitle}>{t('bannerTitle')}</Text>
+          <Text style={styles.bannerSubtitle}>{t('bannerSubtitle')}</Text>
+        </View>
+
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>{t('sectionTitle')}</Text>
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={styles.seeAll}>{t('seeAll')}</Text>
+          </TouchableOpacity>
+        </View>
+      </>
+    );
+  };
 
   const onRefresh = () => {
     setRefreshing(true);
-    fetchProducts();
+    fetchTutorials();
   };
-
-  const userName = user?.name || user?.email || 'Pengguna';
-
-  const renderHeader = () => (
-    <View>
-      <View style={styles.greeting}>
-        <View>
-          <Text style={styles.greetingSmall}>Selamat datang,</Text>
-          <Text style={styles.greetingName}>Halo, {userName}!</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('CartTab')}
-          style={styles.cartIcon}
-        >
-          <Ionicons name="cart-outline" size={26} color={Colors.textPrimary} />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.banner}>
-        <Text style={styles.bannerTitle}>SPD Marketplace</Text>
-        <Text style={styles.bannerSubtitle}>
-          Temukan produk terbaik untuk kebutuhan Anda
-        </Text>
-      </View>
-
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Produk Terbaru</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ProductTab')}
-        >
-          <Text style={styles.seeAll}>Lihat Semua</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
 
   if (loading) {
     return <LoadingSpinner />;
@@ -86,23 +80,17 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={products}
-        keyExtractor={(item) => item._id}
-        numColumns={2}
-        renderItem={({ item }) => (
-          <ProductCard
-            product={item}
-            onPress={() =>
-              navigation.navigate('ProductTab', {
-                screen: 'ProductDetail',
-                params: { productId: item._id },
-              })
-            }
+        data={tutorials}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+          <TutorialCard
+            item={item}
+            onPress={() => navigation.navigate('TutorialDetail', { id: item._id })}
           />
         )}
-        ListHeaderComponent={renderHeader}
+          ListHeaderComponent={renderHeader}
         contentContainerStyle={styles.listContent}
-        columnWrapperStyle={styles.row}
+        
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
