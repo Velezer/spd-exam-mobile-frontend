@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../constants/colors';
 import { useAuth } from '../../contexts/AuthContext';
@@ -23,12 +24,12 @@ const LoginScreen = ({ navigation }) => {
   const validate = () => {
     const newErrors = {};
     if (!email.trim()) {
-      newErrors.email = 'Email tidak boleh kosong';
+      newErrors.email = 'email required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Format email tidak valid';
+      newErrors.email = 'email not valid';
     }
     if (!password.trim()) {
-      newErrors.password = 'Password tidak boleh kosong';
+      newErrors.password = 'password required';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -41,7 +42,13 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <LinearGradient
+      colors={[Colors.authBackground, Colors.authBackgroundDark]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.gradient}
+    >
+      <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -50,67 +57,71 @@ const LoginScreen = ({ navigation }) => {
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
-        <View style={styles.header}>
-          <Text style={styles.title}>Masuk</Text>
-          <Text style={styles.subtitle}>
-            Selamat datang kembali! Silakan masuk ke akun Anda.
-          </Text>
-        </View>
-
-        {error && (
-          <View style={styles.errorBox}>
-            <Text style={styles.errorBoxText}>{error}</Text>
+          <View style={styles.header}>
+            <Text style={styles.title}>Login</Text>
           </View>
-        )}
 
-        <Input
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          placeholder="nama@email.com"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          error={errors.email}
-        />
+          {error && (
+            <View style={styles.errorBox}>
+              <Text style={styles.errorBoxText}>{error}</Text>
+            </View>
+          )}
 
-        <Input
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Masukkan password"
-          secureTextEntry
-          error={errors.password}
-        />
+          <Input
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="email@domain.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            error={errors.email}
+          />
 
-        <Button
-          title="Masuk"
-          onPress={handleLogin}
-          loading={isLoading}
-          style={styles.button}
-        />
+          <Input
+            label="Password"
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Password"
+            secureTextEntry
+            error={errors.password}
+          />
 
-        <TouchableOpacity
-          style={styles.linkContainer}
-          onPress={() => {
-            clearError();
-            navigation.navigate('Register');
-          }}
-        >
-          <Text style={styles.linkText}>
-            Belum punya akun?{' '}
-            <Text style={styles.linkBold}>Daftar</Text>
-          </Text>
-        </TouchableOpacity>
+          <Button
+            title="Register"
+            onPress={handleLogin}
+            loading={isLoading}
+            style={styles.button}
+          />
+
+          <View style={styles.row}>
+            <Text style={styles.linkText}>
+              Belum punya akun?
+            </Text>
+
+            <Button
+              title="Register"
+              onPress={() => {
+                clearError();
+                navigation.navigate('Register');
+              }}
+              loading={isLoading}
+            />
+          </View>
+
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
   },
   scrollContent: {
     flexGrow: 1,
@@ -124,12 +135,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: Colors.textPrimary,
+    color: Colors.white,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 15,
-    color: Colors.textSecondary,
+    color: Colors.white,
     lineHeight: 22,
   },
   errorBox: {
@@ -153,7 +164,7 @@ const styles = StyleSheet.create({
   },
   linkText: {
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: Colors.white,
   },
   linkBold: {
     fontWeight: '700',

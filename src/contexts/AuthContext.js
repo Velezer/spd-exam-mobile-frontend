@@ -102,11 +102,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, email, password) => {
+  const register = async (email, password) => {
     dispatch({ type: 'SET_LOADING' });
     try {
       const response = await api.post('/api/auth/register', {
-        name,
         email,
         password,
       });

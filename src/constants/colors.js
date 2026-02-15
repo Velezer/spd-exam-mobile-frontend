@@ -23,6 +23,8 @@ export const Colors = {
 
   // Aliases
   background: '#F7F7F7',
+  authBackground: '#16a085',
+  authBackgroundDark: '#1abc9c',
   surface: '#FFFFFF',
   textPrimary: '#1A1A1A',
   textSecondary: '#555555',

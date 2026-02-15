@@ -6,8 +6,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../constants/colors';
 import { useAuth } from '../../contexts/AuthContext';
@@ -16,31 +16,19 @@ import Button from '../../components/Button';
 
 const RegisterScreen = ({ navigation }) => {
   const { register, isLoading, error, clearError } = useAuth();
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
 
   const validate = () => {
     const newErrors = {};
-    if (!name.trim()) {
-      newErrors.name = 'Nama tidak boleh kosong';
-    }
     if (!email.trim()) {
-      newErrors.email = 'Email tidak boleh kosong';
+      newErrors.email = 'email required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Format email tidak valid';
+      newErrors.email = 'email not valid';
     }
     if (!password) {
-      newErrors.password = 'Password tidak boleh kosong';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password minimal 6 karakter';
-    }
-    if (!confirmPassword) {
-      newErrors.confirmPassword = 'Konfirmasi password tidak boleh kosong';
-    } else if (password !== confirmPassword) {
-      newErrors.confirmPassword = 'Password tidak cocok';
+      newErrors.password = 'password required';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -49,11 +37,17 @@ const RegisterScreen = ({ navigation }) => {
   const handleRegister = async () => {
     clearError();
     if (!validate()) return;
-    await register(name.trim(), email.trim(), password);
+    await register(email.trim(), password);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <LinearGradient
+      colors={[Colors.authBackground, Colors.authBackgroundDark]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.gradient}
+    >
+      <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -62,85 +56,71 @@ const RegisterScreen = ({ navigation }) => {
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
-        <View style={styles.header}>
-          <Text style={styles.title}>Daftar</Text>
-          <Text style={styles.subtitle}>
-            Buat akun baru untuk mulai berbelanja.
-          </Text>
-        </View>
-
-        {error && (
-          <View style={styles.errorBox}>
-            <Text style={styles.errorBoxText}>{error}</Text>
+          <View style={styles.header}>
+            <Text style={styles.title}>Register</Text>
           </View>
-        )}
 
-        <Input
-          label="Nama Lengkap"
-          value={name}
-          onChangeText={setName}
-          placeholder="Masukkan nama lengkap"
-          autoCapitalize="words"
-          error={errors.name}
-        />
+          {error && (
+            <View style={styles.errorBox}>
+              <Text style={styles.errorBoxText}>{error}</Text>
+            </View>
+          )}
 
-        <Input
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          placeholder="nama@email.com"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          error={errors.email}
-        />
+          <Input
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="email@domain.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            error={errors.email}
+          />
 
-        <Input
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Minimal 6 karakter"
-          secureTextEntry
-          error={errors.password}
-        />
+          <Input
+            label="Password"
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Password"
+            secureTextEntry
+            error={errors.password}
+          />
 
-        <Input
-          label="Konfirmasi Password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          placeholder="Ulangi password"
-          secureTextEntry
-          error={errors.confirmPassword}
-        />
+          <Button
+            title="Register"
+            onPress={handleRegister}
+            loading={isLoading}
+            style={styles.button}
+          />
 
-        <Button
-          title="Daftar"
-          onPress={handleRegister}
-          loading={isLoading}
-          style={styles.button}
-        />
+          <View style={styles.row}>
+            <Text style={styles.linkText}>
+              Sudah punya akun?
+            </Text>
 
-        <TouchableOpacity
-          style={styles.linkContainer}
-          onPress={() => {
-            clearError();
-            navigation.navigate('Login');
-          }}
-        >
-          <Text style={styles.linkText}>
-            Sudah punya akun?{' '}
-            <Text style={styles.linkBold}>Masuk</Text>
-          </Text>
-        </TouchableOpacity>
+            <Button
+              title="Login"
+              onPress={() => {
+                clearError();
+                navigation.navigate('Login');
+              }}
+              loading={isLoading}
+            />
+          </View>
+
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
   },
   scrollContent: {
     flexGrow: 1,
@@ -154,12 +134,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: Colors.textPrimary,
+    color: Colors.white,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 15,
-    color: Colors.textSecondary,
+    color: Colors.white,
     lineHeight: 22,
   },
   errorBox: {
@@ -183,7 +163,7 @@ const styles = StyleSheet.create({
   },
   linkText: {
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: Colors.white,
   },
   linkBold: {
     fontWeight: '700',
