@@ -8,7 +8,6 @@ import {
   RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { useAuth } from '../../contexts/AuthContext';
 import ProductClient from '../../api/ProductClient';
@@ -40,25 +39,17 @@ const HomeScreen = () => {
   }, [fetchTutorials]);
 
   const renderHeader = () => {
-    const name = user?.name || t('guest');
     return (
       <>
-        <View style={styles.greeting}>
-          <View>
-            <Text style={styles.greetingSmall}>{t('greetingSmall')}</Text>
-            <Text style={styles.greetingName}>{name}</Text>
-          </View>
-        </View>
-
         <View style={styles.banner}>
-          <Text style={styles.bannerTitle}>{t('bannerTitle')}</Text>
-          <Text style={styles.bannerSubtitle}>{t('bannerSubtitle')}</Text>
+          <Text style={styles.bannerTitle}>Welcome</Text>
+          <Text style={styles.bannerSubtitle}>Discover new tutorials and tips</Text>
         </View>
 
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{t('sectionTitle')}</Text>
+          <Text style={styles.sectionTitle}>Popular Tutorials</Text>
           <TouchableOpacity onPress={() => {}}>
-            <Text style={styles.seeAll}>{t('seeAll')}</Text>
+            <Text style={styles.seeAll}>See all</Text>
           </TouchableOpacity>
         </View>
       </>
@@ -111,27 +102,6 @@ const styles = StyleSheet.create({
   },
   row: {
     justifyContent: 'space-between',
-  },
-  greeting: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 6,
-    paddingTop: 16,
-    paddingBottom: 12,
-  },
-  greetingSmall: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-  },
-  greetingName: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: Colors.textPrimary,
-    marginTop: 2,
-  },
-  cartIcon: {
-    padding: 8,
   },
   banner: {
     backgroundColor: Colors.gray900,
