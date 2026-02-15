@@ -1,6 +1,8 @@
 export const Colors = {
-  // Primary
-  black: '#000000',
+  // Primary Teal
+  primary: '#1abc9c',
+  primaryDark: '#0f766e',
+  primaryLight: '#16a085',
   white: '#FFFFFF',
 
   // Grays
@@ -16,8 +18,8 @@ export const Colors = {
   gray50: '#F7F7F7',
 
   // Semantic
-  danger: '#DC3545',
-  success: '#1A1A1A',
+  danger: '#DC2626',
+  success: '#1abc9c',
 
   // Aliases
   background: '#F7F7F7',
@@ -27,8 +29,8 @@ export const Colors = {
   textMuted: '#999999',
   border: '#D4D4D4',
   inputBackground: '#FFFFFF',
-  buttonPrimary: '#1A1A1A',
+  buttonPrimary: '#1abc9c',
   buttonPrimaryText: '#FFFFFF',
-  buttonSecondary: '#FFFFFF',
-  buttonSecondaryText: '#1A1A1A',
+  buttonSecondary: '#F7F7F7',
+  buttonSecondaryText: '#1abc9c',
 };

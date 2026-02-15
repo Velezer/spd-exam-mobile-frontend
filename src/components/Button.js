@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   secondary: {
     backgroundColor: Colors.buttonSecondary,
     borderWidth: 1.5,
-    borderColor: Colors.gray900,
+    borderColor: Colors.primary,
   },
   danger: {
     backgroundColor: Colors.danger,

@@ -10,9 +10,9 @@ const TutorialStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.white },
-        headerTintColor: Colors.textPrimary,
-        headerTitleStyle: { fontWeight: '600' },
+        headerStyle: { backgroundColor: Colors.primaryDark },
+        headerTintColor: Colors.white,
+        headerTitleStyle: { fontWeight: '600', color: Colors.white },
         headerShadowVisible: false,
         headerBackTitleVisible: false,
         contentStyle: { backgroundColor: Colors.background },

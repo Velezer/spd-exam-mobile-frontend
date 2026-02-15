@@ -30,7 +30,7 @@ const MainTabs = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: Colors.black,
+        tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.gray400,
         tabBarStyle: {
           backgroundColor: Colors.white,
@@ -59,8 +59,8 @@ const MainTabs = () => {
           tabBarLabel: 'Profil',
           headerShown: true,
           headerTitle: 'Profil',
-          headerStyle: { backgroundColor: Colors.white },
-          headerTitleStyle: { fontWeight: '600', color: Colors.textPrimary },
+          headerStyle: { backgroundColor: Colors.primaryDark },
+          headerTitleStyle: { fontWeight: '600', color: Colors.white },
           headerShadowVisible: false,
         }}
       />
