@@ -31,6 +31,9 @@
         "projectId": "32d2853c-bc5d-4440-96cd-19a3d01e1db1"
       }
     },
-    "owner": "asvelezer"
+    "owner": "asvelezer",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
