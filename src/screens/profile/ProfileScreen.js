@@ -59,24 +59,6 @@ const ProfileScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('CartTab')}
-        >
-          <View style={styles.menuLeft}>
-            <Ionicons
-              name="cart-outline"
-              size={22}
-              color={Colors.textPrimary}
-            />
-            <Text style={styles.menuText}>Keranjang Saya</Text>
-          </View>
-          <Ionicons
-            name="chevron-forward"
-            size={20}
-            color={Colors.gray400}
-          />
-        </TouchableOpacity>
       </View>
 
       <View style={[styles.logoutSection, { paddingBottom: 20 + insets.bottom }]}>

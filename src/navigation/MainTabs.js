@@ -5,17 +5,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HomeScreen from '../screens/home/HomeScreen';
 import TutorialStack from './TutorialStack';
-import CartStack from './CartStack';
 import OrderStack from './OrderStack';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import { Colors } from '../constants/colors';
-import { useCart } from '../contexts/CartContext';
+ 
 
 const Tab = createBottomTabNavigator();
 
 const MainTabs = () => {
-  const { totalItems } = useCart();
   const insets = useSafeAreaInsets();
+  
 
   return (
     <Tab.Navigator
@@ -28,9 +27,6 @@ const MainTabs = () => {
               break;
             case 'TutorialTab':
               iconName = focused ? 'book' : 'book-outline';
-              break;
-            case 'CartTab':
-              iconName = focused ? 'cart' : 'cart-outline';
               break;
             case 'OrderTab':
               iconName = focused ? 'receipt' : 'receipt-outline';
@@ -66,19 +62,6 @@ const MainTabs = () => {
         name="TutorialTab"
         component={TutorialStack}
         options={{ tabBarLabel: 'Tutorial' }}
-      />
-      <Tab.Screen
-        name="CartTab"
-        component={CartStack}
-        options={{
-          tabBarLabel: 'Keranjang',
-          tabBarBadge: totalItems > 0 ? totalItems : undefined,
-          tabBarBadgeStyle: {
-            backgroundColor: Colors.gray900,
-            color: Colors.white,
-            fontSize: 10,
-          },
-        }}
       />
       <Tab.Screen
         name="OrderTab"

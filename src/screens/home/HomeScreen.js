@@ -48,9 +48,6 @@ const HomeScreen = () => {
             <Text style={styles.greetingSmall}>{t('greetingSmall')}</Text>
             <Text style={styles.greetingName}>{name}</Text>
           </View>
-          <TouchableOpacity style={styles.cartIcon} onPress={() => {}}>
-            <Ionicons name="cart-outline" size={22} color={Colors.textPrimary} />
-          </TouchableOpacity>
         </View>
 
         <View style={styles.banner}>
