@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import LinearGradient from 'expo-linear-gradient';
 import { Colors } from '../../constants/colors';
 import ProductClient from '../../api/ProductClient';
 import TutorialCard from '../../components/TutorialCard';
@@ -30,8 +31,9 @@ const TutorialListScreen = ({ navigation }) => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
+    <LinearGradient colors={[Colors.authBackground, Colors.authBackgroundDark]} style={styles.gradient}>
+      <SafeAreaView style={styles.container}>
+        <FlatList
         data={items}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
@@ -45,14 +47,18 @@ const TutorialListScreen = ({ navigation }) => {
           <EmptyState title="Belum ada tutorial" subtitle="Tutorial akan muncul di sini" />
         }
       />
-    </SafeAreaView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
   },
   list: {
     padding: 12,

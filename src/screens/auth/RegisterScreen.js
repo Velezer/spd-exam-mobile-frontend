@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -57,7 +58,12 @@ const RegisterScreen = ({ navigation }) => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <Text style={styles.title}>Register</Text>
+            <Image
+              source={require('../../../assets/logo.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <Text style={styles.title}>DIY Tutorial</Text>
           </View>
 
           {error && (
@@ -130,12 +136,19 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 32,
+    alignItems: 'center',
+  },
+  logo: {
+    width: 300,
+    height: 300,
+    marginBottom: 24,
   },
   title: {
     fontSize: 32,
     fontWeight: '700',
     color: Colors.white,
     marginBottom: 8,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 15,

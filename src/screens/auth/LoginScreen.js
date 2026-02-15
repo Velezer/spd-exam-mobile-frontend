@@ -7,6 +7,7 @@ import {
   Platform,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -58,7 +59,12 @@ const LoginScreen = ({ navigation }) => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <Text style={styles.title}>Login</Text>
+            <Image
+              source={require('../../../assets/logo.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <Text style={styles.title}>DIY Tutorial</Text>
           </View>
 
           {error && (
@@ -87,7 +93,7 @@ const LoginScreen = ({ navigation }) => {
           />
 
           <Button
-            title="Register"
+            title="Login"
             onPress={handleLogin}
             loading={isLoading}
             style={styles.button}
@@ -131,12 +137,19 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 32,
+    alignItems: 'center',
+  },
+  logo: {
+    width: 300,
+    height: 300,
+    marginBottom: 24,
   },
   title: {
     fontSize: 32,
     fontWeight: '700',
     color: Colors.white,
     marginBottom: 8,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 15,

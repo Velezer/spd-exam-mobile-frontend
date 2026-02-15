@@ -6,6 +6,7 @@ import {
   Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LinearGradient from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { useAuth } from '../../contexts/AuthContext';
@@ -27,8 +28,9 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.avatarSection}>
+    <LinearGradient colors={[Colors.authBackground, Colors.authBackgroundDark]} style={styles.gradient}>
+      <View style={styles.container}>
+        <View style={styles.avatarSection}>
         <View style={styles.avatar}>
           <Ionicons name="person" size={40} color={Colors.white} />
         </View>
@@ -38,24 +40,28 @@ const ProfileScreen = ({ navigation }) => {
       {/* <View style={styles.menu}>
       </View> */}
 
-      <View style={[styles.logoutSection, { paddingBottom: 20 + insets.bottom }]}>
-        <Button title="Logout" onPress={handleLogout} variant="secondary" />
+        <View style={[styles.logoutSection, { paddingBottom: 20 + insets.bottom }]}>
+          <Button title="Logout" onPress={handleLogout} variant="secondary" />
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
   },
   avatarSection: {
     alignItems: 'center',
     paddingVertical: 28,
-    backgroundColor: Colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.gray200,
+    backgroundColor: 'transparent',
+    borderBottomWidth: 0,
+    borderBottomColor: 'transparent',
   },
   avatar: {
     width: 80,
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
 
   email: {
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: Colors.white,
   },
   menu: {
     marginTop: 16,
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontSize: 16,
-    color: Colors.textPrimary,
+    color: Colors.white,
   },
   logoutSection: {
     padding: 20,

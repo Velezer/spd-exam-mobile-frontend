@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, Linking, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import LinearGradient from 'expo-linear-gradient';
 import { Colors } from '../../constants/colors';
 import ProductClient from '../../api/ProductClient';
 import { formatRelativeTime } from '../../utils/dateFormatter';
@@ -57,8 +58,9 @@ const TutorialDetailScreen = ({ route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+    <LinearGradient colors={[Colors.authBackground, Colors.authBackgroundDark]} style={styles.gradient}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{item.name}</Text>
         <Image source={{ uri: item.imgUrl }} style={styles.image} />
         <Text style={styles.meta}>{formatRelativeTime(item.createdAt)}</Text>
@@ -69,23 +71,25 @@ const TutorialDetailScreen = ({ route, navigation }) => {
           <Text style={styles.sectionTitle}>Deskripsi</Text>
           <Text style={styles.description}>{item.description}</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.background },
+  gradient: { flex: 1 },
+  container: { flex: 1, backgroundColor: 'transparent' },
   content: { padding: 16 },
-  title: { fontSize: 22, fontWeight: '700', color: Colors.textPrimary, marginBottom: 12 },
+  title: { fontSize: 22, fontWeight: '700', color: Colors.white, marginBottom: 12 },
   image: { width: '100%', height: 200, borderRadius: 8, backgroundColor: Colors.gray100 },
-  meta: { color: Colors.textSecondary, marginTop: 8 },
+  meta: { color: Colors.white, marginTop: 8 },
   videoWrapper: { height: 220, marginTop: 12, borderRadius: 8, overflow: 'hidden' },
   webview: { flex: 1 },
   link: { color: Colors.primary, marginTop: 12 },
   section: { marginTop: 16 },
-  sectionTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary, marginBottom: 8 },
-  description: { color: Colors.textSecondary, lineHeight: 20 },
+  sectionTitle: { fontSize: 16, fontWeight: '700', color: Colors.white, marginBottom: 8 },
+  description: { color: Colors.white, lineHeight: 20 },
 });
 
 export default TutorialDetailScreen;
